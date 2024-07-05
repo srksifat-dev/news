@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news/config/router/app_router.dart';
 import 'package:news/config/theme/app_theme.dart';
 import 'package:news/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 import 'package:news/features/daily_news/presentation/bloc/article/remote/remote_article_event.dart';
-import 'package:news/features/daily_news/presentation/pages/home/daily_news.dart';
 import 'package:news/injection_container.dart';
 import 'package:oktoast/oktoast.dart';
 
@@ -17,12 +17,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppRouter _appRouter = AppRouter();
     return OKToast(
       child: BlocProvider<RemoteArticleBloc>(
         create: (context)=>sl()..add(GetArticles()),
-        child: MaterialApp(
+        child: MaterialApp.router(
           theme: AppTheme.light,
-          home: DailyNews(),
+          routerConfig: _appRouter.config(),
         ),
       ),
     );
